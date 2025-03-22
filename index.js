@@ -1,12 +1,14 @@
 'use strict'
 
 exports.register = function () {
-  this.loginfo("Loaded OK response plugin");
+  this.register_hook('rcpt',    'hook_rcpt');
+  this.register_hook('queue',    'hook_queue');
+  this.register_hook('data',    'hook_data');
 };
 
 exports.hook_data = function (next, connection) {
   connection.transaction.parse_body = true;
-  next();
+  return next(OK);
 };
 
 exports.hook_queue = function (next, connection) {
@@ -21,5 +23,5 @@ exports.hook_rcpt = function (next, connection, params) {
   this.loginfo("Received RCPT TO: " + recipient);
 
   // Always accept the recipient, no matter what
-  return next();
+  return next(OK);
 };
