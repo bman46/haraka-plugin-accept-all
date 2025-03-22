@@ -45,8 +45,8 @@ You'll then be prompted to update package.json and then force push this repo ont
 
 ```sh
 cd /path/to/local/haraka
-npm install haraka-plugin-accept-all
-echo "template" >> config/plugins
+npm install ./haraka-plugin-accept-all
+echo "accept-all" >> config/plugins
 service haraka restart
 ```
 
