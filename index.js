@@ -7,8 +7,8 @@ exports.register = function () {
 };
 
 exports.hook_data = function (next, connection) {
-  connection.transaction.parse_body = true;
-  return next(OK);
+  connection.transaction.parse_body = false;
+  return next(OK, "OK");
 };
 
 exports.hook_queue = function (next, connection) {
