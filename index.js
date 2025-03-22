@@ -1,24 +1,25 @@
 'use strict'
 
 exports.register = function () {
-  this.load_template_ini()
+  this.loginfo("Loaded OK response plugin");
+};
 
-  // register hooks here. More info at https://haraka.github.io/core/Plugins/
-  // this.register_hook('data_post', 'do_stuff_with_message')
-}
+exports.hook_data = function (next, connection) {
+  connection.transaction.parse_body = true;
+  next();
+};
 
-exports.load_template_ini = function () {
-  this.cfg = this.config.get(
-    'template.ini',
-    {
-      booleans: [
-        '+enabled', // this.cfg.main.enabled=true
-        '-disabled', // this.cfg.main.disabled=false
-        '+feature_section.yes', // this.cfg.feature_section.yes=true
-      ],
-    },
-    () => {
-      this.load_template_ini()
-    },
-  )
-}
+exports.hook_queue = function (next, connection) {
+  this.loginfo("Received an email, responding with OK.");
+  return next(OK, "OK");
+};
+
+exports.hook_rcpt = function (next, connection, params) {
+  // params[0] is the recipient email address
+  var recipient = params[0];
+
+  this.loginfo("Received RCPT TO: " + recipient);
+
+  // Always accept the recipient, no matter what
+  return next();
+};
