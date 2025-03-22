@@ -6,21 +6,21 @@ if [ -z "$1" ]; then
 fi
 
 sed -i '' \
-    -e "s/template/${1}/g" \
+    -e "s/accept-all/${1}/g" \
     README.md
 
 sed -i '' \
-    -e "s/template/${1}/g" \
-    -e "s/template\.ini/$1.ini/" \
+    -e "s/accept-all/${1}/g" \
+    -e "s/accept-all\.ini/$1.ini/" \
     test/index.js
 
 sed -i '' \
-    -e "s/template/${1}/g" \
+    -e "s/accept-all/${1}/g" \
     package.json
 
 sed -i '' \
-    -e "s/_template/_${1}/g" \
-    -e "s/template\.ini/$1.ini/" \
+    -e "s/_accept-all/_${1}/g" \
+    -e "s/accept-all\.ini/$1.ini/" \
     index.js
 
 tee CHANGELOG.md <<EO_CHANGE
@@ -29,9 +29,9 @@ tee CHANGELOG.md <<EO_CHANGE
 - Initial release
 EO_CHANGE
 
-git mv config/template.ini "config/$1.ini"
+git mv config/accept-all.ini "config/$1.ini"
 git add package.json CHANGELOG.md README.md index.js test config
-git commit -m "renamed template to $1"
+git commit -m "renamed accept-all to $1"
 npm install
 npm run lint && npm test || exit 1
 git rm redress.sh
