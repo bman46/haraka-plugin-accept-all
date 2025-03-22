@@ -8,4 +8,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 - initial release
 
-[1.0.0]: https://github.com/haraka/haraka-plugin-template/releases/tag/v1.0.0
+[1.0.0]: https://github.com/haraka/haraka-plugin-accept-all/releases/tag/v1.0.0
